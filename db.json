@@ -1,0 +1,38 @@
+{
+	"_default": {
+		"1": {
+			"param": "idAppareil",
+			"value": "1"
+		},
+		"2": {
+			"param": "urlSiteWeb",
+			"value": "https://www.selfy.fun"
+		},
+		"3": {
+			"param": "couleurPrincipaleEvenement",
+			"value": ""
+		},
+		"4": {
+			"param": "couleurSecondaireEvenement",
+			"value": ""
+		},
+		"5": {
+			"param": "idEvenement",
+			"value": ""
+		},
+		"6": {
+			"param": "reglageRaspistill",
+			"value": ""
+		},
+
+		"7": {
+			"param": "templateEvenement",
+			"value": ""
+		},
+		
+		"8": {
+			"param": "accueilEvenement",
+			"value": ""
+		}	
+	}
+}

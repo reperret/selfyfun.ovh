@@ -1,0 +1,29 @@
+/* YOUR CUSTOM CSS */
+.grand{font-size: 2.1em !important;}
+.montantRouge{font-size: 1.4em !important; font-weight: bold; color: crimson}
+.montantNoir{font-size: 1.4em !important; font-weight: bold; color:dimgray}
+.montantVert{font-size: 1.4em !important; font-weight: bold; color:forestgreen}
+.cbJeu{ font-weight: bold ; font-size: 1.2em ; color:#000; }
+.cbJeuDetail{ font-weight: bold ; font-size: 1.5em ; color:#000; }
+#filtresPerso { font-weight: bold ; font-size: 1em ; color:#000;  margin:auto; text-align: center;}
+.retardFinal{ font-weight: bold !important ;  color:crimson !important ;}
+
+
+/* unvisited link */
+a.libelleJeu:link {
+  color: #494949;
+     font-weight: bold;
+}
+
+/* visited link */
+a.libelleJeu:visited {
+  color: #494949;
+     font-weight: bold;
+}
+
+/* mouse over link */
+a.libelleJeu:hover {
+  color: #1c77fb;
+    font-weight: bold;
+    
+}
