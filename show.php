@@ -1,15 +1,15 @@
 <?php
-$montage=$_GET['m'];
-$domaine=explode('.', $_SERVER['HTTP_HOST']);
-$domaine=$domaine[0];
-$url="https://".$domaine.".selfy.fun";
+$montage = $_GET['m'];
+$domaine = explode('.', $_SERVER['HTTP_HOST']);
+$domaine = $domaine[0];
+$url = "https://" . $domaine . ".selfyfun.ovh";
 
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>PARTAGE MONTAGE SELFY.FUN</title>
+    <title>PARTAGE MONTAGE SELFYFUN.OVH</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
@@ -91,21 +91,20 @@ $url="https://".$domaine.".selfy.fun";
                 max-height: 100%;/
             }
         }
-
     </style>
 </head>
 
 <body>
 
 
-    <img src="https://www.selfy.fun/photos/<?php echo $montage;?>"><br>
+    <img src="https://www.selfyfun.ovh/photos/<?php echo $montage; ?>"><br>
     <center> <button id="btn" class="button-32" role="button"> <svg t="1580465783605" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9773" width="30" height="30">
                 <path d="M767.99994 585.142857q75.995429 0 129.462857 53.394286t53.394286 129.462857-53.394286 129.462857-129.462857 53.394286-129.462857-53.394286-53.394286-129.462857q0-6.875429 1.170286-19.456l-205.677714-102.838857q-52.589714 49.152-124.562286 49.152-75.995429 0-129.462857-53.394286t-53.394286-129.462857 53.394286-129.462857 129.462857-53.394286q71.972571 0 124.562286 49.152l205.677714-102.838857q-1.170286-12.580571-1.170286-19.456 0-75.995429 53.394286-129.462857t129.462857-53.394286 129.462857 53.394286 53.394286 129.462857-53.394286 129.462857-129.462857 53.394286q-71.972571 0-124.562286-49.152l-205.677714 102.838857q1.170286 12.580571 1.170286 19.456t-1.170286 19.456l205.677714 102.838857q52.589714-49.152 124.562286-49.152z" p-id="9774" fill="#FFF"></path>
             </svg></button></center>
 
     <div class="footer">
 
-        <p><a href="https//www.selfy.fun"><img src="assets/img/logo-light.png"></a></p>
+        <p><a href="https//www.selfyfun.ovh"><img src="assets/img/logo-light.png"></a></p>
     </div>
 
 
@@ -129,12 +128,12 @@ $url="https://".$domaine.".selfy.fun";
 
 
 
-        fetch('./photos/<?php echo $montage;?>')
+        fetch('./photos/<?php echo $montage; ?>')
             .then(res => res.blob()) // Gets the response and returns it as a blob
             .then(blob => {
 
 
-                const myFile = new File([blob], "<?php echo $montage;?>", {
+                const myFile = new File([blob], "<?php echo $montage; ?>", {
                     type: blob.type,
                 });
 
@@ -142,7 +141,7 @@ $url="https://".$domaine.".selfy.fun";
                     // Show button if it supports webShareAPI
                     btn.style.display = "block";
                     btn.addEventListener("click", () =>
-                        webShareAPI("Un truc à partager...", "Un petit souvenir de ma soirée avec Selfy.fun", "<?php echo $url;?>", myFile)
+                        webShareAPI("Un truc à partager...", "Un petit souvenir de ma soirée avec Selfy.fun", "<?php echo $url; ?>", myFile)
                     );
                 } else {
                     // Hide button if it supports webShareAPI
@@ -153,7 +152,6 @@ $url="https://".$domaine.".selfy.fun";
 
 
             });
-
     </script>
 </body>
 

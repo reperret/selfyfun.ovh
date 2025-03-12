@@ -1,14 +1,13 @@
-﻿<?php 
+﻿<?php
 include 'api2/bdd.php';
 include 'api2/fonctions.php';
-$domaine=explode('.', $_SERVER['HTTP_HOST']);
-$domaine=$domaine[0];
+$domaine = explode('.', $_SERVER['HTTP_HOST']);
+$domaine = $domaine[0];
 
-$infosEvenements=getDomaine($domaine,NULL,$dbh);
-$idEvenement=$infosEvenements['idEvenement'];
-if($domaine!="" && $domaine!="www" && $domaine!=NULL && $idEvenement!="" && $domaine!="selfy" )
-{
-    header('Location:gallerie/?e='.base64_encode($idEvenement));
+$infosEvenements = getDomaine($domaine, NULL, $dbh);
+$idEvenement = $infosEvenements['idEvenement'];
+if ($domaine != "" && $domaine != "www" && $domaine != NULL && $idEvenement != "" && $domaine != "selfy") {
+    header('Location:gallerie/?e=' . base64_encode($idEvenement));
     exit;
 }
 
@@ -30,7 +29,7 @@ function isValid($code, $ip = null)
         'secret'    => '6LfuNqMeAAAAAFBanh2FGB8X6nZ9E_LLWQAHOaES',
         'response'  => $code
     ];
-    if( $ip ){
+    if ($ip) {
         $params['remoteip'] = $ip;
     }
     $url = "https://www.google.com/recaptcha/api/siteverify?" . http_build_query($params);
@@ -44,7 +43,6 @@ function isValid($code, $ip = null)
     } else {
         // Si curl n'est pas dispo, un bon vieux file_get_contents
         $response = file_get_contents($url);
-
     }
 
     if (empty($response) || is_null($response)) {
@@ -57,35 +55,32 @@ function isValid($code, $ip = null)
 
 
 
-$messageConfirmation=NULL;
-$verifierCaptcha=NULL;
-if(isset($_POST['contact']) && $_POST['contact']==1)
-{
-    
-    
-    
-    if (isset($_POST['g-recaptcha-response']) )
-    {
-        $verifierCaptcha = isValid($_POST['g-recaptcha-response'],$_SERVER["REMOTE_ADDR"]);
+$messageConfirmation = NULL;
+$verifierCaptcha = NULL;
+if (isset($_POST['contact']) && $_POST['contact'] == 1) {
+
+
+
+    if (isset($_POST['g-recaptcha-response'])) {
+        $verifierCaptcha = isValid($_POST['g-recaptcha-response'], $_SERVER["REMOTE_ADDR"]);
     }
 
-    if($verifierCaptcha)
-    {
+    if ($verifierCaptcha) {
 
 
-        $messageConfirmation="Une erreur est survenue, veuillez recommencer s'il vous plait.";
+        $messageConfirmation = "Une erreur est survenue, veuillez recommencer s'il vous plait.";
 
         //*********************************************************************
         //                              ENVOI SMS
         //*********************************************************************
 
 
-        $numero="+330631023304";
-        $message="Prénom Nom : ".$_POST['prenomNom']."\r";
-        $message.="Téléphone : ".$_POST['telephone']."\r";
-        $message.="Ville : ".$_POST['ville']."\r";
-        $message.="Email : ".$_POST['email']."\r";
-        $message.="Message : ".$_POST['message']."\r";
+        $numero = "+330631023304";
+        $message = "Prénom Nom : " . $_POST['prenomNom'] . "\r";
+        $message .= "Téléphone : " . $_POST['telephone'] . "\r";
+        $message .= "Ville : " . $_POST['ville'] . "\r";
+        $message .= "Email : " . $_POST['email'] . "\r";
+        $message .= "Message : " . $_POST['message'] . "\r";
 
         $data = array(
             'api_key' => '2e9bb7342817751f671ea908e43266fd',
@@ -105,69 +100,58 @@ if(isset($_POST['contact']) && $_POST['contact']==1)
         //                              ENVOI EMAIL
         //*********************************************************************
         $ch = curl_init();
-        $message="Prénom Nom  : ".$_POST['prenomNom']."<br>";
-        $message.="Téléphone : ".$_POST['telephone']."<br>";
-        $message.="Ville : ".$_POST['ville']."<br>";
-        $message.="Email : ".$_POST['email']."<br>";
-        $message.="Message : ".$_POST['message']."<br>";
+        $message = "Prénom Nom  : " . $_POST['prenomNom'] . "<br>";
+        $message .= "Téléphone : " . $_POST['telephone'] . "<br>";
+        $message .= "Ville : " . $_POST['ville'] . "<br>";
+        $message .= "Email : " . $_POST['email'] . "<br>";
+        $message .= "Message : " . $_POST['message'] . "<br>";
 
-        $params=array(
-            "emailExpediteur"       =>"reperret@gmail.com",
-            "nomExpediteur"         =>"Selfy.fun",
-            "emailDestinataire"     =>"reperret@hotmail.com",
-            "numeroTemplate"        =>"2",
-            "tag_titre"             =>"Nouveau message",
-            "tag_contenu"           =>$message,
-            "tag_lienbouton"        =>"mailto:".$_POST['email'],
-            "tag_libellebouton"     =>"Répondre",
-            "sujet"                 =>"demande selfy.fun"
-            );
+        $params = array(
+            "emailExpediteur"       => "reperret@gmail.com",
+            "nomExpediteur"         => "Selfy.fun",
+            "emailDestinataire"     => "reperret@hotmail.com",
+            "numeroTemplate"        => "2",
+            "tag_titre"             => "Nouveau message",
+            "tag_contenu"           => $message,
+            "tag_lienbouton"        => "mailto:" . $_POST['email'],
+            "tag_libellebouton"     => "Répondre",
+            "sujet"                 => "demande selfyfun.ovh"
+        );
 
-        try 
-        {
+        try {
             curl_setopt($ch, CURLOPT_URL, "https://remyperret.org/api/sendmail/");
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
             curl_setopt($ch, CURLOPT_HEADER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);   
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);         
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($ch, CURLOPT_MAXREDIRS, 1);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 
             $response = curl_exec($ch);
 
-            if (curl_errno($ch)) 
-            {
+            if (curl_errno($ch)) {
                 echo curl_error($ch);
                 die();
             }
 
             $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if($http_code == intval(200))
-            {
-                $messageConfirmation="Message reçu. Nous vous répondons dans les plus bref délais.";
-            }
-            else
-            {
+            if ($http_code == intval(200)) {
+                $messageConfirmation = "Message reçu. Nous vous répondons dans les plus bref délais.";
+            } else {
                 echo "Ressource introuvable : " . $http_code;
             }
-        } 
-        catch (\Throwable $th) 
-        {
+        } catch (\Throwable $th) {
             throw $th;
-        } 
-        finally 
-        {
+        } finally {
             curl_close($ch);
         }
 
-        $messageConfirmation="Message reçu. Nous vous répondons dans les plus bref délais.";
-    }
-    else
-    {
-        $messageConfirmation="Veuillez valider le reCaptcha en cochant la case 'Je ne suis pas un robot'";
+        $messageConfirmation = "Message reçu. Nous vous répondons dans les plus bref délais.";
+    } else {
+        $messageConfirmation = "Veuillez valider le reCaptcha en cochant la case 'Je ne suis pas un robot'";
     }
 }
 
@@ -201,14 +185,13 @@ if(isset($_POST['contact']) && $_POST['contact']==1)
             font-weight: bold;
             font-size: 2em;
         }
-
     </style>
 </head>
 
 <body>
     <div class="content-wrapper">
         <!-- header -->
-        <?php include 'header.php';?>
+        <?php include 'header.php'; ?>
         <!-- /header -->
 
         <section class="wrapper bg-gradient-primary">
@@ -293,7 +276,7 @@ if(isset($_POST['contact']) && $_POST['contact']==1)
 
                                 <h2 class="display-4 mb-3">Un mariage, un anniversaire, un séminaire ? Parlez nous de votre projet...</h2>
 
-                                <span class="confirmationContact"> <?php echo "<br><br>".$messageConfirmation;?></span>
+                                <span class="confirmationContact"> <?php echo "<br><br>" . $messageConfirmation; ?></span>
 
                                 <form class="contact-form" method="POST" action="index.php#contactForm" novalidate="">
 
@@ -406,7 +389,7 @@ if(isset($_POST['contact']) && $_POST['contact']==1)
                                     </div>
                                     <div>
                                         <h5 class="mb-1">Email</h5>
-                                        <p class="mb-0"><a href="mailto:contact@selfy.fun" class="text-body">contact@selfy.fun</a></p>
+                                        <p class="mb-0"><a href="mailto:contact@selfyfun.ovh" class="text-body">contact@selfyfun.ovh</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -432,7 +415,7 @@ if(isset($_POST['contact']) && $_POST['contact']==1)
             <!--/.row -->
             <hr class="mt-13 mt-md-14 mb-7" />
             <div class="d-md-flex align-items-center justify-content-between">
-                <p class="mb-2 mb-lg-0">selfy.fun - créateur de photobooth</p>
+                <p class="mb-2 mb-lg-0">selfyfun.ovh - créateur de photobooth</p>
 
                 <!-- /.social -->
             </div>
