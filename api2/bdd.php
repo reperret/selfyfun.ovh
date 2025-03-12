@@ -1,5 +1,5 @@
 <?php
-//*****CONNEXION BDD*****
+//*****CONNEXION BDD *****
 $serveur = "localhost";
 $user = "root";
 $pass = "Deflagratione89!";
